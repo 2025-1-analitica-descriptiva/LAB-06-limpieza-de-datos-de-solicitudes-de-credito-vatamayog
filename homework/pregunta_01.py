@@ -24,20 +24,13 @@ def pregunta_01():
    # Lista de columnas de texto que quieres limpiar
     columnas_texto = [
     "sexo", "tipo_de_emprendimiento", "idea_negocio", 
-    "línea_credito"
+    "línea_credito", "barrio"
     ]
 
     for col in columnas_texto:
-        df[col] = (
-        df[col]
-        .str.replace("_", " ")
-        .str.replace("-", " ")
-        .str.lower()
-        .str.strip()
-        )
-
-    df['barrio'] = df['barrio'].str.replace("_", " ").str.replace("-", " ")
-    df['barrio'] = df['barrio'].str.lower()
+        df[col] = df[col].str.replace("_", " ").str.replace("-", " ").str.lower()
+        if col != "barrio":
+            df[col] = df[col].str.strip()
 
     #Convertir estrato y comuna a enteros
     df["estrato"] = pd.to_numeric(df["estrato"]).astype("Int64")
